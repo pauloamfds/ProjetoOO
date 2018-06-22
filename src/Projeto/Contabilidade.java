@@ -5,13 +5,24 @@
  */
 package Projeto;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  *
  * @author Samsung
  */
-public class Contabilidade {
+public class Contabilidade extends CadPesRem{
     private int mes;
     private int ano;
+    List<Despesa>desp;
+    public Contabilidade(int mes, int ano){
+        this.mes = mes;
+        this.ano = ano;
+        desp = new LinkedList<Despesa>();
+        
+        
+    }
 
     public int getMes() {
         return mes;
@@ -27,6 +38,21 @@ public class Contabilidade {
 
     public void setAno(int ano) {
         this.ano = ano;
+    }
+
+    @Override
+    public void cadastrar() {
+
+    }
+
+  /*  @Override
+    public void pesquisar() {
+
+    }*/
+
+    @Override
+    public void remover() {
+
     }
     
     

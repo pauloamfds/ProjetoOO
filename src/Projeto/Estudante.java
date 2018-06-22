@@ -14,6 +14,14 @@ public class Estudante {
     private String email;
     private float rendimentos;
 
+    Estudante(String nome, String email, float rendimentos){
+        this.nome = nome;
+        this.email = email;
+        this.rendimentos = rendimentos;
+    }
+
+    Estudante() {
+    }
     public String getNome() {
         return nome;
     }

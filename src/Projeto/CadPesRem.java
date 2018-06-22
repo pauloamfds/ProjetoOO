@@ -9,10 +9,10 @@ package Projeto;
  *Classe abstrata usada com funcoes que serao usadas em mais de uma classe
  * @author Samsung
  */
-public abstract class CadPesRem {
+public abstract class CadPesRem{
     
     public abstract void cadastrar();
-    public abstract void pesquisar();
+    //public abstract void pesquisar();
     public abstract void remover();
     
 }
