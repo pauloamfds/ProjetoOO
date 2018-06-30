@@ -25,15 +25,16 @@ public class Republica{
     private String nome;
     private String endereco;
     List<Contabilidade>conta;
-    List<Estudante>estud = new LinkedList<Estudante>();
+    List<Estudante>estud;
 
     public Republica(){
         conta = new LinkedList<Contabilidade>();
+        estud = new LinkedList<Estudante>();
     }
 
-    public Republica(String oo, String i7) {
-        this.endereco = i7;
-        this.nome = oo;
+    public Republica(String nome, String endereco) {
+        this.endereco = endereco;
+        this.nome = nome;
     }
     
     public String getNome() {
@@ -57,7 +58,9 @@ public class Republica{
         
     	boolean resposta = false;
     	Estudante temp = new Estudante();
-
+        if(estud == null)
+            estud = new LinkedList<Estudante>();
+        
         temp.setNome(JOptionPane.showInputDialog(null," Informe o nome do estudante"));
         temp.setEmail(JOptionPane.showInputDialog(null," Informe o email do estudante"));
         temp.setRendimentos(Float.parseFloat(JOptionPane.showInputDialog(null, "Informe o valor dos rendimentos")));
@@ -67,7 +70,11 @@ public class Republica{
         return resposta;
     }
 
-    
+    /**
+     *
+     * @param title
+     * @return
+     */
     public Estudante pesquisarEstudante(String title) {
         
     	Estudante resposta = null;
@@ -186,7 +193,7 @@ public class Republica{
 		return resposta;
 	}
 	
-	// METODO DESTINADO À ESCRITA DE ARQUIVOS	- ESTUDANTE
+	// METODO DESTINADO ï¿½ ESCRITA DE ARQUIVOS	- ESTUDANTE
 	public boolean gravarArquivoEstudantes() {
 			
 			boolean resposta = false;							// FLAG DE SUCESSO DO METODO
@@ -197,7 +204,7 @@ public class Republica{
 				
 				arquivo = new FileWriter("alunos.txt");			// FAZ UM LINK ENTRE O ARQUIVO E O OBJETO
 			
-			} catch (IOException e) {							// CASO OCORRA ALGUM ERRO, PRINTA A EXCESSÃO
+			} catch (IOException e) {							// CASO OCORRA ALGUM ERRO, PRINTA A EXCESSï¿½O
 				e.printStackTrace();
 			}
 			BufferedWriter buffer = new BufferedWriter(arquivo);	// CRIA UM OBJETO PARA ARMAZENAR TEMPORARIAMENTE OS DADOS
@@ -242,4 +249,10 @@ public class Republica{
 			
 			return resposta;					// RETORNA A FLAG DE SUCESSO|ERRO
 		}
+        
+    @Override
+    public String toString(){
+        return "Nome: " + getNome() + '\n' + "Endereco: " + getEndereco();
+    }
 }
+    
