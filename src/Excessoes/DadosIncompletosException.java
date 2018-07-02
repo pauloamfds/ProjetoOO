@@ -10,5 +10,8 @@ package Excessoes;
  * @author Samsung
  */
 public class DadosIncompletosException extends Exception{
+    public DadosIncompletosException(){
+        super("Dados do estudante estão incompletos");
+    }
     
 }

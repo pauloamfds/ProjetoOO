@@ -5,6 +5,7 @@
  */
 package Projeto;
 
+import Excessoes.DadosIncompletosException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -30,6 +31,8 @@ public class Republica{
     public Republica(){
         conta = new LinkedList<Contabilidade>();
         estud = new LinkedList<Estudante>();
+        this.nome = null;
+        this.endereco = null;
     }
 
     public Republica(String nome, String endereco) {
@@ -54,17 +57,33 @@ public class Republica{
     }
 
     
-    public boolean cadastrarEstudante() {
+    public boolean cadastrarEstudante() throws DadosIncompletosException {
         
     	boolean resposta = false;
+        boolean f = true;
     	Estudante temp = new Estudante();
         if(estud == null)
             estud = new LinkedList<Estudante>();
         
-        temp.setNome(JOptionPane.showInputDialog(null," Informe o nome do estudante"));
-        temp.setEmail(JOptionPane.showInputDialog(null," Informe o email do estudante"));
-        temp.setRendimentos(Float.parseFloat(JOptionPane.showInputDialog(null, "Informe o valor dos rendimentos")));
         
+        String name = (JOptionPane.showInputDialog(null," Informe o nome do estudante"));
+        String email = (JOptionPane.showInputDialog(null," Informe o email do estudante"));
+        Float rend = 0f;
+        String rendi = "1";
+        rendi = (JOptionPane.showInputDialog(null, "Informe o valor dos rendimentos"));
+        if(name == null || name.trim().equals("")
+           || email == null || email.trim().equals("")
+            || rendi == null || rendi.trim().equals("")){
+            f = false;
+            throw new DadosIncompletosException();
+            
+        }
+        if (f){
+            rend = Float.parseFloat(rendi);
+            temp.setNome(name);
+            temp.setEmail(email);
+            temp.setRendimentos(rend);
+        }
         resposta = estud.add(temp);
         
         return resposta;
@@ -92,6 +111,7 @@ public class Republica{
     		
     		if(a.getNome().equalsIgnoreCase(title)){
     			JOptionPane.showMessageDialog(null, "Nome encontrado, posicao: " + i);
+                        JOptionPane.showMessageDialog(null, a.toString());
     			resposta = a;
     		}
     		i++;
@@ -254,5 +274,27 @@ public class Republica{
     public String toString(){
         return "Nome: " + getNome() + '\n' + "Endereco: " + getEndereco();
     }
+    
+    //funcao para informar os dados da republica
+    public Republica dadosRepublica() {
+        String nome = JOptionPane.showInputDialog(null, "Nome da republica");
+        String end = JOptionPane.showInputDialog(null, "Endereco republica");
+        Republica temp = new Republica();
+        temp.setNome(nome);
+        temp.setEndereco(end);
+        while(temp.getNome()== null || temp.getNome().trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Dados republica invalidos, informe os dados");
+            nome = JOptionPane.showInputDialog(null, "Nome da republica");
+            end = JOptionPane.showInputDialog(null, "Endereco republica");
+            temp.setNome(nome);
+            temp.setEndereco(end);
+        }
+        JOptionPane.showMessageDialog(null, "Republica cadastrada com sucesso!!");
+        JOptionPane.showMessageDialog(null, temp.toString());
+        
+        return temp;
+    }
+    
+   
 }
     

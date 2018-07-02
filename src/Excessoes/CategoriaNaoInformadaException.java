@@ -9,6 +9,10 @@ package Excessoes;
  *
  * @author Samsung
  */
-public class CategoriaNaoInformadaException {
+public class CategoriaNaoInformadaException extends Exception {
+    
+    public CategoriaNaoInformadaException(){
+    super ("Categoria de despesa não informada");
+    }
     
 }

@@ -9,6 +9,9 @@ package Excessoes;
  *
  * @author Samsung
  */
-public class DescricaoNaoInformadaException {
+public class DescricaoNaoInformadaException extends Exception {
+    public DescricaoNaoInformadaException(){
+        super("Descricao de despeja nao informada");
+    }
     
 }

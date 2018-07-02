@@ -12,7 +12,7 @@ package Projeto;
 public class Estudante {
     private String nome;
     private String email;
-    private float rendimentos;
+    private float rendimentos = 0;
 
     Estudante(String nome, String email, float rendimentos){
         this.nome = nome;
@@ -45,7 +45,10 @@ public class Estudante {
     public void setRendimentos(float rendimentos) {
         this.rendimentos = rendimentos;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Estudante{" + "Nome=" + nome + "\nEmail=" + email + "\nRendimentos=" + rendimentos + '}';
+    }       
     
 }

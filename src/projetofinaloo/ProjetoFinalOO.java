@@ -34,7 +34,8 @@ public class ProjetoFinalOO {
                              "-Remover estudate do arquivo--",
                              "Sair do program, Exit Program"};
     static Republica rep;
-    static Republica republica = new Republica();                        
+    static Republica republica = new Republica();
+    static Republica temp;
     public static void main(String[] args) {
         // TODO code application logic here
         int a;
@@ -93,28 +94,27 @@ public class ProjetoFinalOO {
     }
 
     private static void dadosRepublica() {
-        String nome = JOptionPane.showInputDialog(null, "Nome da republica");
-        String end = JOptionPane.showInputDialog(null, "Endereco republica");
-        Republica temp = new Republica();
-        temp.setNome(nome);
-        temp.setEndereco(end);
-        
-        republica = temp;
-        
-        if (republica.getNome()!= null){
-            JOptionPane.showMessageDialog(null, "Republica cadastrada com sucesso");
-            JOptionPane.showMessageDialog(null, republica.toString());
-        }
-        else
-            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar");
+        temp = new Republica();
+        rep = temp.dadosRepublica();
     }
 
     private static void cadastrarEstudante() {
-
+        boolean resposta = false;
+        try{
+            resposta = rep.cadastrarEstudante();
+        }catch(DadosIncompletosException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            
+        }
+        if (resposta){
+            JOptionPane.showMessageDialog(null, "Estudante cadastrado com sucesso");
+            }
+        
     }
 
     private static void pesquisarEstudante() {
-
+            String pesquisa = JOptionPane.showInputDialog(null, "Informe o nome a ser pesquisado");
+            rep.pesquisarEstudante(pesquisa);
     }
 
     private static void removerEstudante() {

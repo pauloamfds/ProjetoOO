@@ -9,6 +9,9 @@ package Excessoes;
  *
  * @author Samsung
  */
-public class ValorNaoInformadoException {
+public class ValorNaoInformadoException extends Exception{
+    public ValorNaoInformadoException(){
+        super("Valor da despesa não informado");
+    }
     
 }
