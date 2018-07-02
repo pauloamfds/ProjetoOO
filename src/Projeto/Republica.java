@@ -83,8 +83,9 @@ public class Republica{
             temp.setNome(name);
             temp.setEmail(email);
             temp.setRendimentos(rend);
+            resposta = estud.add(temp);
+
         }
-        resposta = estud.add(temp);
         
         return resposta;
     }

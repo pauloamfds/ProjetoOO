@@ -112,13 +112,38 @@ public class ProjetoFinalOO {
         
     }
 
-    private static void pesquisarEstudante() {
+    private static Estudante pesquisarEstudante() {
             String pesquisa = JOptionPane.showInputDialog(null, "Informe o nome a ser pesquisado");
-            rep.pesquisarEstudante(pesquisa);
+            Estudante tempo;
+            tempo = new Estudante();
+            tempo = rep.pesquisarEstudante(pesquisa);
+            if(tempo == null){
+                JOptionPane.showMessageDialog(null, "Estudante não encontrado");
+            }
+            return tempo;
     }
 
     private static void removerEstudante() {
-
+        boolean deletado = false;
+        int confirma;
+        Estudante e = pesquisarEstudante();
+        if(e != null){
+        confirma = JOptionPane.showConfirmDialog(null, 
+                                    "Deseja mesmo remover estudante?", "Remover",
+                                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(confirma == JOptionPane.YES_OPTION){
+            deletado = rep.removerEstudante(e);
+        }
+         if(deletado){
+            JOptionPane.showMessageDialog(null, "Estudante removido");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Estudante não foi removido");
+        }
+        }
+        
+        
+       
     }
 
     private static void abrirContabilidade() {

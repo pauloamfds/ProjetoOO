@@ -14,13 +14,13 @@ public class Estudante {
     private String email;
     private float rendimentos = 0;
 
-    Estudante(String nome, String email, float rendimentos){
+    public Estudante(String nome, String email, float rendimentos){
         this.nome = nome;
         this.email = email;
         this.rendimentos = rendimentos;
     }
 
-    Estudante() {
+    public Estudante() {
     }
     public String getNome() {
         return nome;
@@ -48,7 +48,7 @@ public class Estudante {
 
     @Override
     public String toString() {
-        return "Estudante{" + "Nome=" + nome + "\nEmail=" + email + "\nRendimentos=" + rendimentos + '}';
+        return "Nome: " + nome + "\nEmail: " + email + "\nRendimentos:" + rendimentos;
     }       
     
 }
