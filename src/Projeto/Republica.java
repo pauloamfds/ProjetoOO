@@ -135,15 +135,30 @@ public class Republica{
     }
     
     //metodos usados para mudar contabilidade
-    public boolean abrirContabilidade(Contabilidade a){
-    	boolean resposta = false;
-    	resposta = conta.add(a);
+    public boolean abrirContabilidade(){
+        Contabilidade a = new Contabilidade();
+        String me = JOptionPane.showInputDialog(null, "Informe o mes da contabilidade");
+        String an = JOptionPane.showInputDialog(null, "Informe o ano da contabilidade");
+        int ano, mes;
+        boolean resposta = false;
+
+        if (me == null || me.trim().equals("") 
+            || an == null || an.trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Não foi possivel abrir contabilidade");
+            
+        }
+        else{
+            a.setMes(Integer.parseInt(me));
+            a.setAno(Integer.parseInt(an));
+            resposta = conta.add(a);
+        };
         return resposta;
     }
     
     public boolean fecharContabilidade(Contabilidade a){
     	boolean resposta =false;
-    	resposta = conta.remove(a);
+        if(conta.contains(a))
+            resposta = conta.remove(a);
         return resposta;
         
     }
@@ -151,7 +166,15 @@ public class Republica{
     public Contabilidade pesquisarContabilidade(int mes, int ano) {
     	
     	Contabilidade resposta = null;
-    	
+    	Iterator<Contabilidade> it = conta.iterator();
+        while(it.hasNext()){
+            Contabilidade a = it.next();
+            if(ano == a.getAno() && mes == a.getMes()){
+                JOptionPane.showMessageDialog(null, "Contabilidade encontrada");
+                JOptionPane.showMessageDialog(null, a.toString());
+                resposta = a;
+            }
+        }
     	
     	
     	return resposta;

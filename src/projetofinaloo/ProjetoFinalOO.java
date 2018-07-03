@@ -36,6 +36,7 @@ public class ProjetoFinalOO {
     static Republica rep;
     static Republica republica = new Republica();
     static Republica temp;
+    
     public static void main(String[] args) {
         // TODO code application logic here
         int a;
@@ -147,15 +148,61 @@ public class ProjetoFinalOO {
     }
 
     private static void abrirContabilidade() {
-
+        boolean resposta = false;
+        
+        resposta = rep.abrirContabilidade();
+        if(resposta){
+            JOptionPane.showMessageDialog(null, "Contabilidae aberta");
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível abrir contabilidade");
+        }
+            
     }
 
-    private static void pesquisarContabilidade() {
-
+    private static Contabilidade pesquisarContabilidade() {
+        Contabilidade cont = new Contabilidade();
+        int ano = 1800;
+        int mes = 0;
+        
+        String me = JOptionPane.showInputDialog("Informe o mes a ser pesquisado:");
+        String an = JOptionPane.showInputDialog("Informe o ano a ser pesquisado:");
+        
+        if(an == null || an.trim().equals("")||
+            me == null || me.trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Ano ou mes omitido");
+        }
+        else{
+            System.out.println("Dentro do else de pesquisa");
+            ano = Integer.parseInt(an);
+            mes = Integer.parseInt(me);
+            cont = rep.pesquisarContabilidade(mes, ano);
+        }
+        if(cont == null){
+            JOptionPane.showMessageDialog(null, "Contabilidade não encontrada");
+        }
+        return cont;
+        
     }
 
     private static void fecharContabilidade() {
-
+       boolean deletado = false;
+        int confirma;
+        Contabilidade c = pesquisarContabilidade();
+        if(c != null){
+        confirma = JOptionPane.showConfirmDialog(null, 
+                                    "Deseja mesmo fechar a contabilidade?", "Remover",
+                                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(confirma == JOptionPane.YES_OPTION){
+            deletado = rep.fecharContabilidade(c);
+        }
+         if(deletado){
+            JOptionPane.showMessageDialog(null, "Contabilidade fechar");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Contabilidade não foi fechada");
+        }
+        }
     }
 
     private static void gravarArquivo() {

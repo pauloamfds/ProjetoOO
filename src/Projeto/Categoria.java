@@ -14,16 +14,17 @@ import java.util.List;
  */
 public class Categoria {
     private String descricao;
-    List<Despesa>desp;
-    
+    Despesa desp;//uma categoria contem uma despesa
+    List<Categoria> subCat; //uma categoria pode contar varias sub
     
     public Categoria(String descricao){
         this.descricao = descricao;
-        desp = new LinkedList<Despesa>();
+       
     }
 
-    Categoria() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Categoria() {
+        desp = new Despesa();
+        subCat = new LinkedList<Categoria>();
     }
 
     public String getDescricao() {

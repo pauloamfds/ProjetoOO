@@ -16,6 +16,10 @@ public class Contabilidade extends CadPesRem{
     private int mes;
     private int ano;
     List<Despesa>desp;
+    
+    public Contabilidade(){
+        
+    }
     public Contabilidade(int mes, int ano){
         this.mes = mes;
         this.ano = ano;
@@ -54,6 +58,12 @@ public class Contabilidade extends CadPesRem{
     public void remover() {
 
     }
+
+    @Override
+    public String toString() {
+        return "Mes: " + mes + "\nAno=" + ano;
+    }
+    
     
     
 }
