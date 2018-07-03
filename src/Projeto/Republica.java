@@ -56,7 +56,6 @@ public class Republica{
         this.endereco = endereco;
     }
 
-    
     public boolean cadastrarEstudante() throws DadosIncompletosException {
         
     	boolean resposta = false;
@@ -90,11 +89,6 @@ public class Republica{
         return resposta;
     }
 
-    /**
-     *
-     * @param title
-     * @return
-     */
     public Estudante pesquisarEstudante(String title) {
         
     	Estudante resposta = null;
@@ -122,7 +116,6 @@ public class Republica{
     	
     }
 
-    
     public boolean removerEstudante(Estudante e) {
     	
     	boolean resposta = false;
@@ -182,62 +175,66 @@ public class Republica{
 
 	public boolean lerArquivoEstudantes() {
 		
-		FileReader arquivo = null;
+		FileReader arquivo = null;						// CRIA UM OBJETO PARA LER O ARQUIVO
 		
-		BufferedReader buffer;
+		BufferedReader buffer;							// CRIA UM BUFFER PARA ARMAZENAR TEMP. O ARQUIVO
 		
-		boolean resposta = false;
+		boolean resposta = false;						// FLAG DE SUCESSO
 		
-		try {
+		try {											// TENTA LER O ARQUIVO
 			
-			arquivo = new FileReader("alunos.txt");
+			arquivo = new FileReader("alunos.txt");		// PEGA O VALOR DO ARQUIVO
 			
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {				// CASO HAJA ALGUM ERRO
 			
-			e.printStackTrace();
+			e.printStackTrace();						// PRINTA O VALOR DO ERRO
 		
 		}
 		
-		buffer = new BufferedReader(arquivo);
+		buffer = new BufferedReader(arquivo);			// ARMAZENA OS ARQUIVOS NO BUFFER TEMPORARIO
 		
 		
-		String line = "";
+		String line = "";								// INICIA A STRING AUXILIAR
 		
 		try {
 		
-			line = buffer.readLine();
+			line = buffer.readLine();					// TENTA LER UMA LINHA
 		
-		} catch (IOException e) {
+		} catch (IOException e) {						// CASO HAJA ALGUM ERRO
 		
-			e.printStackTrace();
+			e.printStackTrace();						// PRINTA O VALOR DO ERRO
 		
 		}
 		
 		do {
-			String[] campos = line.split(";");
+			String[] campos = line.split(";");			// SEPARA AS LINHAS DE ACORDO COM O ';'
 			
-			float rendimentos = Integer.parseInt(campos[2]);
+			float rendimentos = Float.parseFloat(campos[2]);	// RENDIMENTO DO ESTUDANTE
 			
 			
-			Estudante est = new Estudante(campos[0],campos[1],rendimentos);
+			Estudante est = new Estudante(campos[0],campos[1],rendimentos);	// CRIA UM ESTUDANTE DE ACORDO COM OS VALORES LIDOS NO ARQUIVO
 			
-			if (estud == null) 
-				estud = new LinkedList<Estudante>();
+			if (estud == null) 							// CASO NÃO TENHA A LISTA DE ESTUDANTES
+				estud = new LinkedList<Estudante>();	// CRIA A LISTA DE ESTUDANTES
 			
-			resposta = estud.add(est);
+			resposta = estud.add(est);					// CRIA UM OBJETO DO TIPO ESTUDANTE DE ACORDO COM OS VALORES PRESENTES NA LINHA DO ARQUIVO
 			
-			try {
-				line = buffer.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
+			try {								// TENTA LER A LINHA
+				
+				line = buffer.readLine();		// LÊ A LINHA
+			
+			} catch (IOException e) {			// CASO HAJA ALGUM ERRO
+			
+				e.printStackTrace();			// PRINTA O VALOR
+			
 			}
 			
-		} while (line != null);
+		} while (line != null);					// REALIZA O LOOP ENQUANTE TIVER LINHAS
 		
-		return resposta;
+		return resposta;						// RETORNA A FLAG DE SUCESSO
 	}
 	
-	// METODO DESTINADO ï¿½ ESCRITA DE ARQUIVOS	- ESTUDANTE
+	// METODO DESTINADO 'A ESCRITA DE ARQUIVOS	- ESTUDANTE
 	public boolean gravarArquivoEstudantes() {
 			
 			boolean resposta = false;							// FLAG DE SUCESSO DO METODO

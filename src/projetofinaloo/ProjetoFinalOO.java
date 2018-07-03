@@ -7,6 +7,8 @@ package projetofinaloo;
 
 import Projeto.*;
 import Excessoes.*;
+
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -58,26 +60,33 @@ public class ProjetoFinalOO {
             case "----Inserir dados republica---": 
                 dadosRepublica();
                 break;
+                
             case "---Cadastrar novo estudante---":
                 cadastrarEstudante();
                 break;
+                
             case "------Pesquisar estudante-----":
                 pesquisarEstudante();
                 break;
+                
             case "------Remover estudante-------":
                 removerEstudante();
                 break;
+                
             case "----Cadastar contabilidade----":
                 abrirContabilidade();
                 break;
+                
             case "---Pesquisar contabilidade----":
                 pesquisarContabilidade();
                 break;
+                
             case "----Remover contabilidade-----":
                 fecharContabilidade();
                 break;
+                
             case "-Gravar estudantes em arquivo-":
-                gravarArquivo();
+                gravarEstudanteArquivo();
                 break;
             case "-Remover estudate do arquivo--":
                 removerArquivo();
@@ -100,16 +109,44 @@ public class ProjetoFinalOO {
     }
 
     private static void cadastrarEstudante() {
-        boolean resposta = false;
-        try{
-            resposta = rep.cadastrarEstudante();
-        }catch(DadosIncompletosException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        
+    	boolean resposta = false;									//FLAG DE SUCESSO
+        
+        // OPÇÕES PARA O JOPTIONPANE
+        String stringOP[] = {"--Selecione a opcao desejada--",
+        				"--------Inserir arquivo-------",
+        				"------Inserir Manualmente----"};
+        
+        Object op = JOptionPane.showInputDialog(null, "Informe a opcao desejada",
+                "Cadastro de Estudantes",
+                 JOptionPane.QUESTION_MESSAGE,
+                 null,
+                 stringOP,
+                 stringOP[0]);
+        
+        // METODOS PARA DE ACORDO COM A SELEÇÃO ACIMA
+        
+        switch (op.toString()){
+        case "--------Inserir arquivo-------":
+            resposta = rep.lerArquivoEstudantes();
             
-        }
-        if (resposta){
-            JOptionPane.showMessageDialog(null, "Estudante cadastrado com sucesso");
+            if (resposta){
+                JOptionPane.showMessageDialog(null, "Dados lidos com sucesso");
             }
+        	break;
+        
+        case "------Inserir Manualmente----": 
+            try{
+                resposta = rep.cadastrarEstudante();
+            }catch(DadosIncompletosException e){
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                
+            }
+            if (resposta){
+                JOptionPane.showMessageDialog(null, "Estudante cadastrado com sucesso");
+                }
+            break;
+        }
         
     }
 
@@ -205,8 +242,16 @@ public class ProjetoFinalOO {
         }
     }
 
-    private static void gravarArquivo() {
-
+    // ADICIONAR ESTUDANTES NO ARQUIVO
+    private static void gravarEstudanteArquivo() {
+    	
+    	boolean resposta = false;						// FLAG DE SUCESSO
+    	
+        resposta = rep.gravarArquivoEstudantes();		// CHAMA O METODO PARA ADICIONAR ESTUDANTES EM ARQUIVO
+             
+         if (resposta){									// TESTE DE SUCESSO
+             JOptionPane.showMessageDialog(null, "Estudante(s) armazenado(s) com sucesso");	// MENSAGEM DE SUCESSO
+         }
     }
 
     private static void removerArquivo() {
