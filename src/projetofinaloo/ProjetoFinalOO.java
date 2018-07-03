@@ -32,6 +32,8 @@ public class ProjetoFinalOO {
                              "----Cadastar contabilidade----",
                              "---Pesquisar contabilidade----",
                              "----Remover contabilidade-----",
+                             "-------Inserir despesa--------",
+                             "---Calculo valor a ser pago---",
                              "-Gravar estudantes em arquivo-",
                              "-Remover estudate do arquivo--",
                              "Sair do program, Exit Program"};
@@ -84,7 +86,12 @@ public class ProjetoFinalOO {
             case "----Remover contabilidade-----":
                 fecharContabilidade();
                 break;
-                
+            case "-------Inserir despesa--------":
+                inserirDespesa();
+                break;
+            case "---Calculo valor a ser pago---":
+                calculoValor();
+                break;
             case "-Gravar estudantes em arquivo-":
                 gravarEstudanteArquivo();
                 break;
@@ -112,7 +119,7 @@ public class ProjetoFinalOO {
         
     	boolean resposta = false;									//FLAG DE SUCESSO
         
-        // OPÇÕES PARA O JOPTIONPANE
+        // OPï¿½ï¿½ES PARA O JOPTIONPANE
         String stringOP[] = {"--Selecione a opcao desejada--",
         				"--------Inserir arquivo-------",
         				"------Inserir Manualmente----"};
@@ -124,7 +131,7 @@ public class ProjetoFinalOO {
                  stringOP,
                  stringOP[0]);
         
-        // METODOS PARA DE ACORDO COM A SELEÇÃO ACIMA
+        // METODOS PARA DE ACORDO COM A SELEï¿½ï¿½O ACIMA
         
         switch (op.toString()){
         case "--------Inserir arquivo-------":
@@ -255,6 +262,14 @@ public class ProjetoFinalOO {
     }
 
     private static void removerArquivo() {
+
+    }
+
+    private static void inserirDespesa() {
+
+    }
+
+    private static void calculoValor() {
 
     }
 }
