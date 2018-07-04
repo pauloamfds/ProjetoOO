@@ -5,6 +5,9 @@
  */
 package Projeto;
 
+import Excessoes.CategoriaNaoInformadaException;
+import Excessoes.DescricaoNaoInformadaException;
+import Excessoes.ValorNaoInformadoException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,10 +54,10 @@ public class Contabilidade {
     }
 
    
-    public boolean cadastrarDespesa() {
+    public boolean cadastrarDespesa() throws CategoriaNaoInformadaException, ValorNaoInformadoException, DescricaoNaoInformadaException {
     
     	boolean resposta = false;
-        
+        String cat, no, val;
     	Despesa temp_despesa = new Despesa();
     	
     	if (despesas == null) {
@@ -66,13 +69,25 @@ public class Contabilidade {
     	
     	int subCategoria;
     	
-		temp_despesa.setNome(JOptionPane.showInputDialog(null,"Informe o nome da despesa:"));
+		no = JOptionPane.showInputDialog(null,"Informe o nome da despesa:");
     	
-		temp_despesa.setValor(Float.parseFloat(JOptionPane.showInputDialog(null,"Informe o valor da despesa:")));
+		val = JOptionPane.showInputDialog(null,"Informe o valor da despesa:");
 		
-		temp_despesa.setCategoria();
+		cat = JOptionPane.showInputDialog("Informe a categoria da despesa");
 		    		
 		resposta = despesas.add(temp_despesa);
+                if(no == null || no.trim().equals(""))
+                    throw new DescricaoNaoInformadaException();
+                else
+                    temp_despesa.setNome(no);
+                if(val == null || val.trim().equals(""))
+                    throw new ValorNaoInformadoException();
+                else
+                    temp_despesa.setValor(Float.parseFloat(val));
+                if (cat == null || cat.trim().equals(""))
+                    throw new CategoriaNaoInformadaException();
+                else
+                    temp_despesa.setCategoria(cat);
     			            
     	return resposta;
     }

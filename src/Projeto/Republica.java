@@ -232,14 +232,14 @@ public class Republica{
 			
 			Estudante est = new Estudante(campos[0],campos[1],rendimentos);	// CRIA UM ESTUDANTE DE ACORDO COM OS VALORES LIDOS NO ARQUIVO
 			
-			if (estud == null) 							// CASO NÃO TENHA A LISTA DE ESTUDANTES
+			if (estud == null) 							// CASO Nï¿½O TENHA A LISTA DE ESTUDANTES
 				estud = new LinkedList<Estudante>();	// CRIA A LISTA DE ESTUDANTES
 			
 			resposta = estud.add(est);					// CRIA UM OBJETO DO TIPO ESTUDANTE DE ACORDO COM OS VALORES PRESENTES NA LINHA DO ARQUIVO
 			
 			try {								// TENTA LER A LINHA
 				
-				line = buffer.readLine();		// LÊ A LINHA
+				line = buffer.readLine();		// Lï¿½ A LINHA
 			
 			} catch (IOException e) {			// CASO HAJA ALGUM ERRO
 			
@@ -352,8 +352,8 @@ public class Republica{
     	
     }
     
-    // MENU DE ESCOLHAS PARA REALIZAÇÃO DA DIVISÃO DAS DIVIDAS
-    public void realizarDivisão() {
+    // MENU DE ESCOLHAS PARA REALIZAï¿½ï¿½O DA DIVISï¿½O DAS DIVIDAS
+    public void realizarDivisao() {
     
     	
     	String opcoes[] = {"--Selecione a opcao desejada--",
@@ -395,13 +395,13 @@ public class Republica{
 		
 		if(estud.size()==0) {
 			JOptionPane.showMessageDialog(null, 
-					"Não há estudantes na Republica\nAdicione estudantes no menu inicial!", "Erro", 0);	// CASO NÃO TENHA ESTUDANTE NA REPUBLICA
+					"Nï¿½o hï¿½ estudantes na Republica\nAdicione estudantes no menu inicial!", "Erro", 0);	// CASO Nï¿½O TENHA ESTUDANTE NA REPUBLICA
 		}
 		else {		
-			float valorDespesa = totalDespesa/estud.size();			//REALIZA A DIVISÃO DA DESPESA
+			float valorDespesa = totalDespesa/estud.size();			//REALIZA A DIVISï¿½O DA DESPESA
     	
 			JOptionPane.showMessageDialog(null, "Cada Estudante deve "
-			+valorDespesa+ " referente ao mês escolhido!", "Calculo Individual", 1);	// PRINTA AS INFORMAÇÕES PARA O USUARIO
+			+valorDespesa+ " referente ao mï¿½s escolhido!", "Calculo Individual", 1);	// PRINTA AS INFORMAï¿½ï¿½ES PARA O USUARIO
 		}
 		
 	}
@@ -439,7 +439,7 @@ public class Republica{
     		Estudante estudante = it2.next();				// CRIA O PRIMEIRO OBJETO
     		
     		valores+= "Estudante "+estudante.getNome()+
-    		" deve "+totalDespesa*estudante.getRendimentos()/totalRendimento+"!\n";	// FAZ O VETOR PARA MOSTRAR AS INFORMAÇÕES
+    		" deve "+totalDespesa*estudante.getRendimentos()/totalRendimento+"!\n";	// FAZ O VETOR PARA MOSTRAR AS INFORMAï¿½ï¿½ES
     	    		
     	}
     	JOptionPane.showMessageDialog(null, valores, "valores", 1);	// PRINTA OS VALORES

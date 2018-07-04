@@ -31,9 +31,9 @@ public class Despesa{
         this.valor = valor;
     }
     
-    public void setCategoria() {
+    public void setCategoria(String cat) {
     	
-    	categoria = new Categoria(JOptionPane.showInputDialog(null,"Descrição da Categoria:"));
+    	categoria = new Categoria(cat);
     	
  
     }

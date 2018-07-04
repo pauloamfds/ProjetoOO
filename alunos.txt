@@ -1,0 +1,2 @@
+paulo;paulo;1000.0;
+guilherme;guilherme;1100.0;

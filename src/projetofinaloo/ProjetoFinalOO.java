@@ -273,7 +273,7 @@ public class ProjetoFinalOO {
     }
 
     // INSERE AS DESPESAS DE ACORDO COM A CONTABILIDADE
-    private static boolean inserirDespesa() {
+    private static boolean inserirDespesa(){
     	
     	boolean resposta = false;								// FLAG DE SUCESSO
     	
@@ -283,20 +283,33 @@ public class ProjetoFinalOO {
     	
     	//do {
     	    	
-    	if(contabilidade != null) {								// CASO NÃO TENHA A CONTABILIDADE
-
+    	if(contabilidade != null) {								// CASO Nï¿½O TENHA A CONTABILIDADE
+                try{
         	resposta = contabilidade.cadastrarDespesa();		// CADASTRO AS DESPESAS
-    
+                }catch(CategoriaNaoInformadaException e){
+                    JOptionPane.showMessageDialog(null,e.getMessage());
+                }catch(ValorNaoInformadoException e){
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }catch(DescricaoNaoInformadaException e){
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
         	return resposta;									// FLAG DE SUCESSO
     	}
-    	else {													// CASO NÃO TENHA A CONTABILIDADE PESQUISADA
+    	else {													// CASO Nï¿½O TENHA A CONTABILIDADE PESQUISADA
             	
     		if(JOptionPane.showConfirmDialog(null, 				// CASO O USUARIO QUEIRA INSERIR A CONTABILIDADE
     				"Deseja cadastrar nova Contabilidade?") ==JOptionPane.YES_OPTION) {
     		
     			Contabilidade cont = abrirContabilidade();		// ADICIONO A CONTABILIDADE
-    			
-    			resposta = cont.cadastrarDespesa();				// CADASTRO AS DESPESAS
+    			try{
+    			resposta = cont.cadastrarDespesa();  // CADASTRO AS DESPESAS
+                        }catch(CategoriaNaoInformadaException e){
+                            JOptionPane.showMessageDialog(null,e.getMessage());
+                        }catch(ValorNaoInformadoException e){
+                              JOptionPane.showMessageDialog(null, e.getMessage());
+                        }catch(DescricaoNaoInformadaException e){
+                            JOptionPane.showMessageDialog(null, e.getMessage());
+                        }
     			
     		}
     	}
@@ -309,6 +322,6 @@ public class ProjetoFinalOO {
     }
 
     private static void calculoValor() {
-    	rep.realizarDivisão();
+    	rep.realizarDivisao();
     }
 }
