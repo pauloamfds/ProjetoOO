@@ -25,17 +25,17 @@ public class ProjetoFinalOO {
      */
     //para definir as opcoes do meu inicial do programa
     static String opcoes[] = {"--Selecione a opcao desejada--",
-                             "----Inserir dados republica---",
-                             "---Cadastrar novo estudante---",
-                             "------Pesquisar estudante-----",
-                             "------Remover estudante-------",
-                             "----Cadastar contabilidade----",
-                             "---Pesquisar contabilidade----",
-                             "----Remover contabilidade-----",
-                             "-------Inserir despesa--------",
-                             "---Calculo valor a ser pago---",
-                             "-Gravar estudantes em arquivo-",
-                             "-Remover estudate do arquivo--",
+                             "----Inserir dados republica----",
+                             "---Cadastrar novo estudante----",
+                             "------Pesquisar estudante------",
+                             "------Remover estudante--------",
+                             "----Cadastar contabilidade-----",
+                             "---Pesquisar contabilidade-----",
+                             "----Remover contabilidade------",
+                             "-------Inserir despesa---------",
+                             "---Calculo valor a ser pago----",
+                             "-Gravar estudantes em arquivo--",
+                             "--Remover estudate do arquivo--",
                              "Sair do program, Exit Program"};
     static Republica rep;
     static Republica republica = new Republica();
@@ -59,43 +59,47 @@ public class ProjetoFinalOO {
         do{
             
         switch (op.toString()){
-            case "----Inserir dados republica---": 
+            case "----Inserir dados republica----": 
                 dadosRepublica();
                 break;
                 
-            case "---Cadastrar novo estudante---":
+            case "---Cadastrar novo estudante----":
                 cadastrarEstudante();
                 break;
                 
-            case "------Pesquisar estudante-----":
+            case "------Pesquisar estudante------":
                 pesquisarEstudante();
                 break;
                 
-            case "------Remover estudante-------":
+            case "------Remover estudante--------":
                 removerEstudante();
                 break;
                 
-            case "----Cadastar contabilidade----":
+            case "----Cadastar contabilidade-----":
                 abrirContabilidade();
                 break;
                 
-            case "---Pesquisar contabilidade----":
+            case "---Pesquisar contabilidade-----":
                 pesquisarContabilidade();
                 break;
                 
-            case "----Remover contabilidade-----":
+            case "----Remover contabilidade------":
                 fecharContabilidade();
                 break;
-            case "-------Inserir despesa--------":
+            
+            case "-------Inserir despesa---------":
                 inserirDespesa();
                 break;
-            case "---Calculo valor a ser pago---":
+            
+            case "---Calculo valor a ser pago----":
                 calculoValor();
                 break;
-            case "-Gravar estudantes em arquivo-":
+            
+            case "-Gravar estudantes em arquivo--":
                 gravarEstudanteArquivo();
                 break;
-            case "-Remover estudate do arquivo--":
+            
+            case "--Remover estudate do arquivo--":
                 removerArquivo();
                 break;
             }  
@@ -105,7 +109,7 @@ public class ProjetoFinalOO {
                                                  null,
                                                  opcoes,
                                                  opcoes[0]);
-        }while(!op.toString().equalsIgnoreCase(opcoes[10])); 
+        }while(!op.toString().equalsIgnoreCase(opcoes[12])); 
         
     
     }
@@ -191,22 +195,23 @@ public class ProjetoFinalOO {
        
     }
 
-    private static void abrirContabilidade() {
-        boolean resposta = false;
+    private static Contabilidade abrirContabilidade() {
+    	
+    	Contabilidade resposta = null;
         
-        resposta = rep.abrirContabilidade();
-        if(resposta){
+    	resposta = rep.abrirContabilidade();
+        if(resposta != null){
             JOptionPane.showMessageDialog(null, "Contabilidae aberta");
             
         }else{
             JOptionPane.showMessageDialog(null, "N√£o foi poss√≠vel abrir contabilidade");
         }
-            
+        return resposta;
     }
 
     private static Contabilidade pesquisarContabilidade() {
         Contabilidade cont = new Contabilidade();
-        int ano = 1800;
+        int ano = 0;
         int mes = 0;
         
         String me = JOptionPane.showInputDialog("Informe o mes a ser pesquisado:");
@@ -217,13 +222,15 @@ public class ProjetoFinalOO {
             JOptionPane.showMessageDialog(null, "Ano ou mes omitido");
         }
         else{
-            System.out.println("Dentro do else de pesquisa");
+            
             ano = Integer.parseInt(an);
             mes = Integer.parseInt(me);
             cont = rep.pesquisarContabilidade(mes, ano);
         }
+               
         if(cont == null){
-            JOptionPane.showMessageDialog(null, "Contabilidade n√£o encontrada");
+            JOptionPane.showMessageDialog(null, "Contabilidade nao encontrada");
+
         }
         return cont;
         
@@ -265,11 +272,43 @@ public class ProjetoFinalOO {
 
     }
 
-    private static void inserirDespesa() {
+    // INSERE AS DESPESAS DE ACORDO COM A CONTABILIDADE
+    private static boolean inserirDespesa() {
+    	
+    	boolean resposta = false;								// FLAG DE SUCESSO
+    	
+    	Contabilidade contabilidade = pesquisarContabilidade();	// PESQUISA A CONTBILIDADE DESEJADA
+    	
+    	//int sair =0;
+    	
+    	//do {
+    	    	
+    	if(contabilidade != null) {								// CASO N√O TENHA A CONTABILIDADE
 
+        	resposta = contabilidade.cadastrarDespesa();		// CADASTRO AS DESPESAS
+    
+        	return resposta;									// FLAG DE SUCESSO
+    	}
+    	else {													// CASO N√O TENHA A CONTABILIDADE PESQUISADA
+            	
+    		if(JOptionPane.showConfirmDialog(null, 				// CASO O USUARIO QUEIRA INSERIR A CONTABILIDADE
+    				"Deseja cadastrar nova Contabilidade?") ==JOptionPane.YES_OPTION) {
+    		
+    			Contabilidade cont = abrirContabilidade();		// ADICIONO A CONTABILIDADE
+    			
+    			resposta = cont.cadastrarDespesa();				// CADASTRO AS DESPESAS
+    			
+    		}
+    	}
+    	
+    	//sair = JOptionPane.showConfirmDialog(null, "Deseja cadastrar nova Despesa?");
+		
+    	//}while(sair == JOptionPane.YES_OPTION);
+
+    	return resposta;   									// RETORNOO A FLAG DE SUCESSO
     }
 
     private static void calculoValor() {
-
+    	rep.realizarDivis„o();
     }
 }

@@ -6,6 +6,8 @@
 package Projeto;
 
 import Excessoes.DadosIncompletosException;
+
+import java.awt.JobAttributes;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -24,8 +26,11 @@ import javax.swing.JOptionPane;
 public class Republica{
     
     private String nome;
+    
     private String endereco;
+    
     List<Contabilidade>conta;
+    
     List<Estudante>estud;
 
     public Republica(){
@@ -59,17 +64,24 @@ public class Republica{
     public boolean cadastrarEstudante() throws DadosIncompletosException {
         
     	boolean resposta = false;
-        boolean f = true;
+        
+    	boolean f = true;
+    	
     	Estudante temp = new Estudante();
-        if(estud == null)
+        
+    	if(estud == null)
             estud = new LinkedList<Estudante>();
-        
-        
+              
         String name = (JOptionPane.showInputDialog(null," Informe o nome do estudante"));
+        
         String email = (JOptionPane.showInputDialog(null," Informe o email do estudante"));
+        
         Float rend = 0f;
+        
         String rendi = "1";
+        
         rendi = (JOptionPane.showInputDialog(null, "Informe o valor dos rendimentos"));
+        
         if(name == null || name.trim().equals("")
            || email == null || email.trim().equals("")
             || rendi == null || rendi.trim().equals("")){
@@ -95,14 +107,14 @@ public class Republica{
     	
     	Iterator<Estudante> it = estud.iterator();
         
-    	System.out.println("Antes do while");
+    	//System.out.println("Antes do while");
         
     	int i = 0;
     	
     	while(it.hasNext()){     
     		
     		Estudante a = it.next();
-    		System.out.println("Dentro do while");
+    		//System.out.println("Dentro do while");
     		
     		if(a.getNome().equalsIgnoreCase(title)){
     			JOptionPane.showMessageDialog(null, "Nome encontrado, posicao: " + i);
@@ -128,12 +140,15 @@ public class Republica{
     }
     
     //metodos usados para mudar contabilidade
-    public boolean abrirContabilidade(){
-        Contabilidade a = new Contabilidade();
-        String me = JOptionPane.showInputDialog(null, "Informe o mes da contabilidade");
-        String an = JOptionPane.showInputDialog(null, "Informe o ano da contabilidade");
-        int ano, mes;
-        boolean resposta = false;
+    public Contabilidade abrirContabilidade(){
+        
+    	Contabilidade a = new Contabilidade();
+        
+    	String me = JOptionPane.showInputDialog(null, "Informe o mes da contabilidade");
+        
+    	String an = JOptionPane.showInputDialog(null, "Informe o ano da contabilidade");
+        
+    	//int ano, mes;
 
         if (me == null || me.trim().equals("") 
             || an == null || an.trim().equals("")){
@@ -143,9 +158,9 @@ public class Republica{
         else{
             a.setMes(Integer.parseInt(me));
             a.setAno(Integer.parseInt(an));
-            resposta = conta.add(a);
+            conta.add(a);
         };
-        return resposta;
+        return a;
     }
     
     public boolean fecharContabilidade(Contabilidade a){
@@ -158,9 +173,12 @@ public class Republica{
     
     public Contabilidade pesquisarContabilidade(int mes, int ano) {
     	
+    	    	
     	Contabilidade resposta = null;
+    	
     	Iterator<Contabilidade> it = conta.iterator();
-        while(it.hasNext()){
+        
+    	while(it.hasNext()){
             Contabilidade a = it.next();
             if(ano == a.getAno() && mes == a.getMes()){
                 JOptionPane.showMessageDialog(null, "Contabilidade encontrada");
@@ -296,7 +314,7 @@ public class Republica{
         return "Nome: " + getNome() + '\n' + "Endereco: " + getEndereco();
     }
     
-    //funcao para informar os dados da republica
+    // INFORMA OS DADOS DA REPUBLICA
     public Republica dadosRepublica() {
         String nome = JOptionPane.showInputDialog(null, "Nome da republica");
         String end = JOptionPane.showInputDialog(null, "Endereco republica");
@@ -316,6 +334,119 @@ public class Republica{
         return temp;
     }
     
-   
+    // REALIZA O SOMATORIO DAS DIVIDAS DE UMA CONTABILIDADE
+    public float realizarCalculo() {
+    	
+    	float valorTotal = 0f;
+    	
+    	int ano = Integer.parseInt(JOptionPane.showInputDialog(null,"Ano da contabilidade:"));
+    	
+    	int mes = Integer.parseInt(JOptionPane.showInputDialog(null,"Mes da contabilidade:"));
+    	
+    	Contabilidade contabilidadeAtual = pesquisarContabilidade(mes, ano);
+
+    	if(contabilidadeAtual !=null)    		
+    		valorTotal = contabilidadeAtual.valorTotalContabilidade();
+    	
+    	return valorTotal;
+    	
+    }
+    
+    // MENU DE ESCOLHAS PARA REALIZAÇÃO DA DIVISÃO DAS DIVIDAS
+    public void realizarDivisão() {
+    
+    	
+    	String opcoes[] = {"--Selecione a opcao desejada--",
+                "----Realizar Calculo Proporcional----",
+                "----Realizar Calculo Igualitario----",
+                "------Retornar ao Menu Anterior-----"};
+    	
+    	Object op = JOptionPane.showInputDialog(null, "Informe a opcao desejada",
+                "Cadastro Republica",
+                 JOptionPane.QUESTION_MESSAGE,
+                 null,
+                 opcoes,
+                 opcoes[0]);
+
+    	do{
+
+    		switch (op.toString()){
+    			case "----Realizar Calculo Proporcional----": 
+    				calculoProporcional();
+    				break;
+    				
+    			case "----Realizar Calculo Igualitario----":
+    				calculoIgualitario();
+    				break;
+    		}
+    		op = JOptionPane.showInputDialog(null, "Informe a opcao desejada",
+                    "Calculo",
+                     JOptionPane.QUESTION_MESSAGE,
+                     null,
+                     opcoes,
+                     opcoes[0]);
+    	}while(!op.toString().equals(opcoes[3]));
+    }
+
+    // REALIZA O CALCULO IGUALITARIO DAS DESPESAS  
+	private void calculoIgualitario() {
+		
+		float totalDespesa = realizarCalculo();			// PEGA O VALOR TOTAL DE UMA CONTABILIDADE
+		
+		if(estud.size()==0) {
+			JOptionPane.showMessageDialog(null, 
+					"Não há estudantes na Republica\nAdicione estudantes no menu inicial!", "Erro", 0);	// CASO NÃO TENHA ESTUDANTE NA REPUBLICA
+		}
+		else {		
+			float valorDespesa = totalDespesa/estud.size();			//REALIZA A DIVISÃO DA DESPESA
+    	
+			JOptionPane.showMessageDialog(null, "Cada Estudante deve "
+			+valorDespesa+ " referente ao mês escolhido!", "Calculo Individual", 1);	// PRINTA AS INFORMAÇÕES PARA O USUARIO
+		}
+		
+	}
+	
+	
+	// REALIZA O CALCULO PROPORCIONAL	
+	private void calculoProporcional() {
+			
+    	float totalRendimento = 0f;							// VARIAVEL PARA ARMAZENAR OS RENDIMENTO
+    	
+    	float totalDespesa = realizarCalculo();				// VARIAVEL PARA ARMAZENAR AS DESPESAS
+    	
+    	Iterator<Estudante> it = estud.iterator();			// ITERADOR PARA 'VARRER' A LISTA DE ESTUDANTES
+        
+    	int i = 0;											// VARIAVEL DE INCREMENTO NO LOOP	
+    	
+    	while(it.hasNext()){     							// LOOP DE PEGAR OS RENDIMENTOS
+    		
+    		Estudante estudante = it.next();				// CRIA O PRIMEIRO OBJETO DA LISTA
+    		
+    		totalRendimento +=estudante.getRendimentos();	// PEGA O RENDIMENTO DO OBJETO
+    		
+    		i++;											// INCREMENTA A VARIVEL DO LOOP
+    		
+    	}
+    	
+    	Iterator<Estudante> it2 = estud.iterator();			// ITERADOR PARA 'VARRER' ESTUDANTES
+    	
+    	i=0;												// REINICIA A VARIAVEL DO LOOP
+    	
+    	String valores = new String();						// STRING PARA PRINTAR OS VALORES
+    	
+    	while(it2.hasNext()){								// LOOP PARA REALIZAR A CONTA DA DESPESA INDIVIDUAL
+    		
+    		Estudante estudante = it2.next();				// CRIA O PRIMEIRO OBJETO
+    		
+    		valores+= "Estudante "+estudante.getNome()+
+    		" deve "+totalDespesa*estudante.getRendimentos()/totalRendimento+"!\n";	// FAZ O VETOR PARA MOSTRAR AS INFORMAÇÕES
+    	    		
+    	}
+    	JOptionPane.showMessageDialog(null, valores, "valores", 1);	// PRINTA OS VALORES
+    
+		
+	}
+    
+    
 }
     

@@ -8,25 +8,24 @@ package Projeto;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- *
- * @author Samsung
- */
+
 public class Categoria {
-    private String descricao;
-    Despesa desp;//uma categoria contem uma despesa
-    List<Categoria> subCat; //uma categoria pode contar varias sub
+    
+	private String descricao;
+	
+	List<Categoria> subCat;
     
     public Categoria(String descricao){
         this.descricao = descricao;
        
     }
-
-    public Categoria() {
-        desp = new Despesa();
-        subCat = new LinkedList<Categoria>();
+   
+    public void inserirSubcategoria(){
+    	
+    	subCat = new LinkedList<Categoria>();
+    	
     }
-
+    
     public String getDescricao() {
         return descricao;
     }

@@ -5,15 +5,17 @@
  */
 package Projeto;
 
-/**
- *
- * @author Samsung
- */
-public class Despesa extends CadPesRem {
-    private String nome;
-    private float valor;
-    Categoria cat = new Categoria();
-    public String getNome() {
+import javax.swing.JOptionPane;
+
+public class Despesa{
+    
+	private String nome;
+    
+	private float valor;
+    
+	Categoria categoria;
+    
+	public String getNome() {
         return nome;
     }
 
@@ -28,22 +30,12 @@ public class Despesa extends CadPesRem {
     public void setValor(float valor) {
         this.valor = valor;
     }
-
-    @Override
-    public void cadastrar() {
-
-    }
-/*
-    @Override
-    public void pesquisar() {
-
-    }
-*/
-    @Override
-    public void remover() {
-
-    }
     
-    
+    public void setCategoria() {
+    	
+    	categoria = new Categoria(JOptionPane.showInputDialog(null,"Descrição da Categoria:"));
+    	
+ 
+    }
     
 }

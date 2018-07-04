@@ -5,27 +5,33 @@
  */
 package Projeto;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- *
- * @author Samsung
- */
-public class Contabilidade extends CadPesRem{
-    private int mes;
-    private int ano;
-    List<Despesa>desp;
+import javax.swing.JOptionPane;
+
+
+public class Contabilidade {
+    
+	private int mes;
+    
+	private int ano;
+    
+	List<Despesa> despesas;
     
     public Contabilidade(){
         
     }
+    
     public Contabilidade(int mes, int ano){
-        this.mes = mes;
+        
+    	this.mes = mes;
+        
         this.ano = ano;
-        desp = new LinkedList<Despesa>();
         
-        
+        despesas = new LinkedList<Despesa>();
+         
     }
 
     public int getMes() {
@@ -44,19 +50,88 @@ public class Contabilidade extends CadPesRem{
         this.ano = ano;
     }
 
-    @Override
-    public void cadastrar() {
-
+   
+    public boolean cadastrarDespesa() {
+    
+    	boolean resposta = false;
+        
+    	Despesa temp_despesa = new Despesa();
+    	
+    	if (despesas == null) {
+    		
+    		despesas = new LinkedList<>();
+    	}
+    	
+    	int sair;
+    	
+    	int subCategoria;
+    	
+		temp_despesa.setNome(JOptionPane.showInputDialog(null,"Informe o nome da despesa:"));
+    	
+		temp_despesa.setValor(Float.parseFloat(JOptionPane.showInputDialog(null,"Informe o valor da despesa:")));
+		
+		temp_despesa.setCategoria();
+		    		
+		resposta = despesas.add(temp_despesa);
+    			            
+    	return resposta;
     }
 
-  /*  @Override
-    public void pesquisar() {
+  
+    public Despesa pesquisarDespesa(String nomeProcurado) {
 
-    }*/
+    	Despesa resposta = null;
+    	
+    	Iterator<Despesa> it = despesas.iterator();
+        
+    	int i = 0;
+    	
+    	while(it.hasNext()){     
+    		
+    		Despesa desp = it.next();
+    		
+    		if(desp.getNome().equalsIgnoreCase(nomeProcurado)){
+    			
+    			JOptionPane.showMessageDialog(null, "Nome encontrado, posicao: " + i);
+                
+    			JOptionPane.showMessageDialog(null, desp.toString());
+    			
+    			resposta = desp;
+    		}
+    		
+    		i++;
+    		
+    	}
+    	// implementar toString dentro de estudante
+		return resposta;
+    	
+    }
 
-    @Override
-    public void remover() {
+    
+    //public void remover() {
 
+    //}
+    
+    // SOMATORIO DA CONTABILIDADE
+    public float valorTotalContabilidade() {
+    	
+    	float valorDespesa = 0f;
+    	
+    	Iterator<Despesa> it = despesas.iterator();
+        
+    	int i = 0;
+    	
+    	while(it.hasNext()){     
+    		
+    		Despesa desp = it.next();
+    		
+    		valorDespesa +=desp.getValor();
+    		
+    		i++;
+    		
+    	}
+    	
+    	return valorDespesa;
     }
 
     @Override
